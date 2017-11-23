@@ -57,3 +57,5 @@ typings/
 # dotenv environment variables file
 .env
 
+uber4movers/flask-sqlalchemy/app/conf.py
+__pycache__
