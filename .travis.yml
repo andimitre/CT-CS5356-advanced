@@ -6,4 +6,4 @@ install:
   - pip install -r requirements.txt
 # command to run tests
 script:
-  - uber4movers/flask-sqlalchemy/test.py # or py.test for Python versions 3.5 and below
+  -  - chmod +x uber4movers/flask-sqlalchemy/test.py # or py.test for Python versions 3.5 and below
