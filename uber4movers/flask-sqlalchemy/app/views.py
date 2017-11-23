@@ -1,7 +1,8 @@
-from app import app, conf, db, models
+from app import app, db, models
 from random import randint
 from flask import jsonify, request, Response, json
 from twilio.rest import Client
+import os
 
 def randNums():
     num = randint(1000, 9999)
@@ -16,7 +17,7 @@ def createCode():
     code = randNums()
     phone = {'phone': request.json['phone'], 'code': code}
     # inst. twilio client
-    client = Client(conf.account_sid, conf.auth_token)
+    client = Client(os.environ['ACCOUNT_SID'], os.environ['AUTH_TOKEN'])
     client.api.account.messages.create(
         to=phone['phone'],
         from_="5162899596",
