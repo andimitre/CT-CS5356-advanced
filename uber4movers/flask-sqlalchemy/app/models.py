@@ -4,6 +4,8 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     name = db.Column(db.String(100))
     phone = db.Column(db.String(50))
+    code = db.Column(db.String(10))
+    is_verified = db.Column(db.Boolean)
     user_jobs = db.relationship('Jobs', backref="user", lazy=True)
 
     def __repr__(self):
