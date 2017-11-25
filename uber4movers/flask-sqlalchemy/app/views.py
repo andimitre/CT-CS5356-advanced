@@ -152,3 +152,12 @@ def isVerified():
         value = "User is Verified" if user.is_verified else "Unverified user"
     resp = Response(json.dumps(value), status=200, mimetype='application/json')
     return resp
+
+
+@app.route('/createJob', methods=['POST'])
+def createJob():
+    return "job created"
+
+@app.route('/isJobAccepted', methods=['POST'])
+def isJobAccepted():
+    return "job accepted"

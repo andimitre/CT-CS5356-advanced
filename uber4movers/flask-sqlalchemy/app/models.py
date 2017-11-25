@@ -31,6 +31,7 @@ class Jobs(db.Model):
     end = db.Column(db.DateTime)
     price = db.Column(db.Float)
     description = db.Column(db.String(4000))
+    is_accepted = db.Column(db.Boolean)
     # mover = db.relationship("Mover", back_populates="mover_jobs")
 
     def __repr__(self):
