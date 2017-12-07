@@ -21,7 +21,7 @@ def index():
       200:
         description: Success
     """
-    return "Hello, World!"
+    return "Hello!"
 
 @app.route('/createCode', methods=['POST'])
 def createCode():
