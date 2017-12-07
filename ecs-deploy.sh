@@ -527,13 +527,12 @@ if [ "$BASH_SOURCE" == "$0" ]; then
     echo "New task definition: $NEW_TASKDEF";
 
     # update service if needed
-    if [ $SERVICE == false ]; then
-        echo "Task definition updated successfully"
-    else
-        updateService
-
-        waitForGreenDeployment
-    fi
+    # if [ $SERVICE == false ]; then
+    #     echo "Task definition updated successfully"
+    # else
+    updateService
+    waitForGreenDeployment
+    # fi
 
     exit 0
 
