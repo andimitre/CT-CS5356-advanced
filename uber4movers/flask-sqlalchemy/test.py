@@ -33,7 +33,7 @@ class FlaskBookshelfTests(unittest.TestCase):
         result = self.app.get('/')
 
         # assert the response data
-        self.assertEqual(result.data, b'Hello, World!')
+        self.assertEqual(result.data, b'Hello!')
 
 
     def test_create_code_status(self):
