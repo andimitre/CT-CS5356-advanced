@@ -13,8 +13,8 @@ script:
 after_success:
   - docker --version  # document the version travis is using
   - docker build -t python-barcode .
-  - docker tag python-barcode:latest amitre/python-barcode:latest
+  - docker tag python-barcode:latest amitre/rest-api:latest
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
-    docker push amitre/python-barcode;
+    docker push amitre/rest-api;
     fi
