@@ -244,7 +244,7 @@ function getCurrentTaskDefinition() {
       TASK_DEFINITION=`$AWS_ECS describe-task-definition --task-def $TASK_DEFINITION_ARN`
     fi
 }
- 
+
 function createNewTaskDefJson() {
     # Get a JSON representation of the current task definition
     # + Update definition to use new image name
