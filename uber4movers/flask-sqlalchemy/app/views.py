@@ -2,6 +2,7 @@ from app import app, db, models
 from random import randint
 from flask import jsonify, request, Response, json
 from twilio.rest import Client
+from datetime import datetime
 import os
 
 def randNums():
@@ -153,11 +154,58 @@ def isVerified():
     resp = Response(json.dumps(value), status=200, mimetype='application/json')
     return resp
 
-
 @app.route('/createJob', methods=['POST'])
 def createJob():
-    return "job created"
+    data = {'user_id': request.json['user_id'],'mover_id': request.json['mover_id'],'num_of_rooms': request.json['num_of_rooms'],'start': request.json['start'],'end': request.json['end'], 'price': request.json['price'], 'description': request.json['description'],'is_accepted': request.json['is_accepted']}
+    j = models.Jobs(user_id=data['user_id'], mover_id=data['mover_id'], num_of_rooms=data['num_of_rooms'], price=data['price'], description=data['description'], is_accepted=data['is_accepted'])
+    # start=datetime(data['start']), end=datetime(data['end'])
+    db.session.add(j)
+    db.session.commit()
+    resp = Response(json.dumps(data), status=200, mimetype='application/json')
+    return resp
 
-@app.route('/isJobAccepted', methods=['POST'])
-def isJobAccepted():
-    return "job accepted"
+@app.route('/getJobs', methods=['GET'])
+def getJobs():
+    jobs = models.Jobs.query.filter_by(is_accepted=False)
+    data = []
+    if (jobs):
+        for elem in jobs:
+            # data[elem.id] = [elem.user_id, elem.mover_id, elem.num_of_rooms,elem.start, elem.end, elem.price, elem.description, elem.is_accepted]
+            temp_data = {'id': elem.id, 'user_id': elem.user_id,'mover_id': elem.mover_id,'num_of_rooms': elem.num_of_rooms,'start': elem.start,'end': elem.end, 'price': elem.price, 'description': elem.description,'is_accepted': elem.is_accepted}
+            data.append(temp_data)
+    else:
+        data.append("No data, no bueno")
+    resp = Response(json.dumps(data), status=200, mimetype='application/json')
+    return resp
+
+
+@app.route('/getUsers', methods=['GET'])
+def getUsers():
+    user = models.User.query.all()
+    data = []
+    if (user):
+        for elem in user:
+            # data[elem.id] = [elem.name, elem.phone, elem.code, elem.is_verified]
+            temp_data = {'id': elem.id, 'name': elem.name,'phone': elem.phone, 'code': elem.code,'is_verified': elem.is_verified}
+            data.append(temp_data)
+    else:
+        data.append("No data, no bueno")
+    resp = Response(json.dumps(data), status=200, mimetype='application/json')
+    return resp
+
+#
+# @app.route('/getJobsByUser', methods=['GET'])
+# def getJobsByUser():
+#     return "job accepted"
+
+@app.route('/acceptJob', methods=['POST'])
+def acceptJob():
+    data = {'job_id': request.json['job_id']}
+    jobs = models.Jobs.query.filter_by(id=data['job_id']).first()
+    value = "Job does not exist"
+    if (jobs):
+        jobs.is_accepted = True
+        value = "Job accepted"
+        db.session.commit()
+    resp = Response(json.dumps(value), status=200, mimetype='application/json')
+    return resp
