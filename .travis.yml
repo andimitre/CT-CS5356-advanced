@@ -13,3 +13,4 @@ script:
 after_success:
   - docker --version  # document the version travis is using
   - ./docker_push.sh
+  - ./ecs_deploy.sh
