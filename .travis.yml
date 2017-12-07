@@ -12,4 +12,4 @@ script:
   - python uber4movers/flask-sqlalchemy/test.py
 after_success:
   - docker --version  # document the version travis is using
-  - docker_push.sh
+  - ./docker_push.sh
