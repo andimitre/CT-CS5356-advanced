@@ -7,4 +7,4 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 mkdir ${HOME}/.kube
 cp config ${HOME}/.kube/config
 
-kubectl set image deployment/flask-am-app flask-am-app=https://hub.docker.com/r/amitre/rest-api/
+kubectl run am-flask-app-2 --image=amitre/rest-api:latest --port=5000
